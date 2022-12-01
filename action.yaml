@@ -4,6 +4,7 @@ input:
   github_token:
     description: "GitHub Token"
     required: true
+    default: ''
 runs:
   using: "composite"
   steps:
