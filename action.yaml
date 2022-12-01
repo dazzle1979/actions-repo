@@ -1,7 +1,7 @@
 name: 'Integration Testing'
 description: 'Run the integration tests and show the results'
 inputs:
-  api_key:
+  secret:
     description: "Api key"
     required: true
     default: ''
@@ -25,4 +25,4 @@ runs:
     
     - name: test
       shell: bash
-      run: echo ${{ inputs.api_key }} ${{ github.events }}
+      run: echo ${{ inputs.secret }} ${{ github.events }}
