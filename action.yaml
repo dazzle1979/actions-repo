@@ -6,6 +6,7 @@ inputs:
     required: true
     default: ''
 runs:
+  using: "composite"
   steps:
     - uses: LouisBrunner/checks-action@v1.5.0
       id: integration-tests
