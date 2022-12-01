@@ -35,6 +35,7 @@ runs:
       run: echo ${{ steps.start.outputs.execution-id }}
     
     - name: test script
+      shell: bash
       env:
         EXECUTION_ID: '123' # ${{ steps.start.outputs.execution-id }} #'229a68a4-409e-4abd-9b98-2d148d4275fc'
       run: ./test.sh
