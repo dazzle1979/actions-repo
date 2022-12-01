@@ -18,7 +18,7 @@ runs:
       run: |
         EXECUTION_ARN=$(curl -X POST ${{ inputs.API_ENDPOINT }} -H "x-api-key: ${{ inputs.API_KEY }}" -H "Content-Type: application/json --fail")
         echo $EXECUTION_ARN
-        echo "execution-id=$(echo $EXECUTION_ARN | tail -c 37)"
+        echo ${{ inputs.API_ENDPOINT }}
         echo "execution-id=$(echo $EXECUTION_ARN | tail -c 37)" >> $GITHUB_OUTPUT
 
     - uses: LouisBrunner/checks-action@v1.5.0
