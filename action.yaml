@@ -27,7 +27,9 @@ runs:
     
     - name: test
       shell: bash
-      run: echo ${{ steps.start.outputs.execution-id }}
+      run: |
+        ls -la
+        echo ${{ steps.start.outputs.execution-id }}
     
     - name: test script
       shell: bash
