@@ -28,4 +28,5 @@ runs:
           {"summary": "OK, er ging iets mis"}
     
     - name: test
+      shell: bash
       run: echo ${{ inputs.api_key }}
