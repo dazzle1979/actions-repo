@@ -50,12 +50,12 @@ runs:
         echo "status=$STATUS" >> $GITHUB_ENV
 
     - name: Get the cucumber report
-        if: env.status == 'success'
-        run: |
-          curl -X GET ${{ inputs.API_ENDPOINT }}/${{ steps.start-tests.outputs.execution-id }} \
-            -o cucumber.report.json \
-            -H "x-api-key: ${{ inputs.API_KEY }}" \
-            -H "Content-Type: application/json"
+      if: env.status == 'success'
+      run: |
+        curl -X GET ${{ inputs.API_ENDPOINT }}/${{ steps.start-tests.outputs.execution-id }} \
+          -o cucumber.report.json \
+          -H "x-api-key: ${{ inputs.API_KEY }}" \
+          -H "Content-Type: application/json"
     
     - uses: LouisBrunner/checks-action@v1.5.0
       if: env.status == 'success'
