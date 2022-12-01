@@ -1,8 +1,12 @@
-name: 'Hello World'
-description: 'Greet someone'
+name: 'Integration Testing'
+description: 'Run the integration tests and show the results'
 inputs: 
   github_token:
     description: "GitHub Token"
+    required: true
+    default: ''
+  api_key:
+    description: "Api key"
     required: true
     default: ''
 runs:
@@ -14,6 +18,7 @@ runs:
         token: ${{ inputs.github_token }}
         name: Integration tests
         status: in_progress
+    
     - uses: LouisBrunner/checks-action@v1.5.0
       with:
         token: ${{ inputs.github_token }}
@@ -21,3 +26,6 @@ runs:
         conclusion: failure
         output: |
           {"summary": "OK, er ging iets mis"}
+    
+    - name: test
+      run: echo ${{ inputs.api_key }}
