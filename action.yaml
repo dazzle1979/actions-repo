@@ -6,10 +6,7 @@ inputs:
     required: true
     default: ''
 runs:
-  using: "composite"
   steps:
-    - uses: actions/checkout@v3
-
     - uses: LouisBrunner/checks-action@v1.5.0
       id: integration-tests
       with:
@@ -31,23 +28,23 @@ runs:
         ls -la
         echo ${{ steps.start.outputs.execution-id }}
     
-    # - name: test script
-    #   shell: bash
-    #   env:
-    #     EXECUTION_ID: '123' # ${{ steps.start.outputs.execution-id }} #'229a68a4-409e-4abd-9b98-2d148d4275fc'
-    #   run: ./test.sh
+    - name: test script
+      shell: bash
+      env:
+        EXECUTION_ID: '123' # ${{ steps.start.outputs.execution-id }} #'229a68a4-409e-4abd-9b98-2d148d4275fc'
+      run: ./test.sh
 
-    # - name: test script 2
-    #   shell: bash
-    #   env:
-    #     EXECUTION_ID: '123' # ${{ steps.start.outputs.execution-id }} #'229a68a4-409e-4abd-9b98-2d148d4275fc'
-    #   run: ./${GITHUB_WORKSPACE}/test.sh
+    - name: test script 2
+      shell: bash
+      env:
+        EXECUTION_ID: '123' # ${{ steps.start.outputs.execution-id }} #'229a68a4-409e-4abd-9b98-2d148d4275fc'
+      run: ./${GITHUB_WORKSPACE}/test.sh
 
-    # - name: test script 3
-    #   shell: bash
-    #   env:
-    #     EXECUTION_ID: '123' # ${{ steps.start.outputs.execution-id }} #'229a68a4-409e-4abd-9b98-2d148d4275fc'
-    #   run: bash test.sh
+    - name: test script 3
+      shell: bash
+      env:
+        EXECUTION_ID: '123' # ${{ steps.start.outputs.execution-id }} #'229a68a4-409e-4abd-9b98-2d148d4275fc'
+      run: bash test.sh
 
     - name: test script 4
       shell: bash
