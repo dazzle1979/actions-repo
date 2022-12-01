@@ -15,13 +15,12 @@ runs:
         name: Integration tests
         status: in_progress
 
-    - name: Start tests
-      id: start
-      shell: bash
-      run: |
-        RESPONSE=$(curl -X POST https://hxp8z9xr67.execute-api.eu-west-1.amazonaws.com/prod/integration-test)
-        echo "id=$RESPONSE"
-        echo "id=$RESPONSE" >> $GITHUB_OUTPUT
+    # - name: Start tests
+    #   id: start
+    #   shell: bash
+    #   run: |
+    #     EXECUTION_ID=$(curl -X POST https://hxp8z9xr67.execute-api.eu-west-1.amazonaws.com/prod/integration-test)
+    #     echo "execution-id=$EXECUTION_ID" >> $GITHUB_OUTPUT
     
     - uses: LouisBrunner/checks-action@v1.5.0
       with:
@@ -33,4 +32,9 @@ runs:
     
     - name: test
       shell: bash
-      run: echo ${{ steps.start.outputs.id }}
+      run: echo ${{ steps.start.outputs.execution-id }}
+    
+    - name: test script
+      env:
+        EXECUTION_ID: '123' # ${{ steps.start.outputs.execution-id }} #'229a68a4-409e-4abd-9b98-2d148d4275fc'
+      run: ./test.sh
