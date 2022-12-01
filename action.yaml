@@ -4,11 +4,11 @@ runs:
   using: "composite"
   steps:
     - uses: LouisBrunner/checks-action@v1.1.1
-        id: integration-tests
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          name: Integration tests
-          status: in_progress
+      id: integration-tests
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        name: Integration tests
+        status: in_progress
     - uses: LouisBrunner/checks-action@v1.1.1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
