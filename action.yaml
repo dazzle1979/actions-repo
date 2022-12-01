@@ -1,7 +1,7 @@
 name: 'Integration Testing'
 description: 'Run the integration tests and show the results'
 inputs:
-  api_key:
+  API_KEY:
     description: "Api key"
     required: true
     default: ''
@@ -14,6 +14,13 @@ runs:
         token: ${{ github.token }}
         name: Integration tests
         status: in_progress
+
+    - name: Start tests
+      id: start
+      shell: bash
+      run: |
+        curl -X POST https://hxp8z9xr67.execute-api.eu-west-1.amazonaws.com/prod/integration-test
+
     
     - uses: LouisBrunner/checks-action@v1.5.0
       with:
@@ -25,4 +32,4 @@ runs:
     
     - name: test
       shell: bash
-      run: echo ${{ inputs.api_key }}
+      run: echo ${{ steps.start.outputs }}
