@@ -16,7 +16,7 @@ runs:
       id: start-tests
       shell: bash
       run: |
-        EXECUTION_ARN=$(curl -X POST ${{ inputs.API_ENDPOINT }} -H "x-api-key: ${{ inputs.API_KEY }}" -H "Content-Type: application/json --fail")
+        EXECUTION_ARN=$(curl -X POST ${{ inputs.API_ENDPOINT }} -H "x-api-key: ${{ inputs.API_KEY }}" -H "Content-Type: application/json" --fail)
         echo $EXECUTION_ARN
         echo ${{ inputs.API_ENDPOINT }}
         echo "execution-id=$(echo $EXECUTION_ARN | tail -c 37)" >> $GITHUB_OUTPUT
