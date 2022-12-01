@@ -14,13 +14,6 @@ runs:
         token: ${{ github.token }}
         name: Integration tests
         status: in_progress
-
-    # - name: Start tests
-    #   id: start
-    #   shell: bash
-    #   run: |
-    #     EXECUTION_ID=$(curl -X POST https://hxp8z9xr67.execute-api.eu-west-1.amazonaws.com/prod/integration-test)
-    #     echo "execution-id=$EXECUTION_ID" >> $GITHUB_OUTPUT
     
     - uses: LouisBrunner/checks-action@v1.5.0
       with:
