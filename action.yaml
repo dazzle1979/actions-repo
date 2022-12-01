@@ -12,19 +12,21 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: LouisBrunner/checks-action@v1.5.0
-      id: integration-tests
-      with:
-        token: ${{ github.token }}
-        name: Integration tests
-        status: in_progress
-
     - name: Start tests
       id: start-tests
       shell: bash
       run: |
         EXECUTION_ID=$(curl -X POST ${{ inputs.API_ENDPOINT }} -H "x-api-key: ${{ inputs.API_KEY }}" -H "Content-Type: application/json")
         echo "execution-id=$EXECUTION_ID" >> $GITHUB_OUTPUT
+
+    - uses: LouisBrunner/checks-action@v1.5.0
+      id: integration-tests
+      with:
+        token: ${{ github.token }}
+        name: Integration tests
+        status: in_progress
+        output: |
+          {"summary": "Integration testing started with exectionId: ${{ steps.start-tests.outputs.execution-id }}"}
 
     - name: Poll for result
       shell: bash
