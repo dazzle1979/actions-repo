@@ -1,17 +1,21 @@
 name: 'Hello World'
 description: 'Greet someone'
+input: 
+  token:
+    description: "GitHub Token"
+    required: true
 runs:
   using: "composite"
   steps:
     - uses: LouisBrunner/checks-action@v1.1.1
       id: integration-tests
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ inputs.token }}
         name: Integration tests
         status: in_progress
     - uses: LouisBrunner/checks-action@v1.1.1
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ inputs.token }}
         check_id: ${{ steps.integration-tests.outputs.check_id }}
         conclusion: failure
         output: |
