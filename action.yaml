@@ -16,8 +16,8 @@ runs:
       id: start-tests
       shell: bash
       run: |
-        EXECUTION_ID=$(curl -X POST ${{ inputs.API_ENDPOINT }} -H "x-api-key: ${{ inputs.API_KEY }}" -H "Content-Type: application/json --fail")
-        echo "execution-id=$EXECUTION_ID" >> $GITHUB_OUTPUT
+        EXECUTION_ARN=$(curl -X POST ${{ inputs.API_ENDPOINT }} -H "x-api-key: ${{ inputs.API_KEY }}" -H "Content-Type: application/json --fail")
+        echo "execution-id=$(echo $EXECUTION_ARN | tail -c 37)" >> $GITHUB_OUTPUT
 
     - uses: LouisBrunner/checks-action@v1.5.0
       id: integration-tests
@@ -31,7 +31,7 @@ runs:
     - name: Poll for result
       shell: bash
       run: |
-        REPORT_URL="${{ inputs.API_ENDPOINT }}/${{ steps.start-tests.outputs.execution-id }}"
+        REPORT_URL="${{ inputs.API_ENDPOINT }}/${{ steps.start-tests.outputs.execution-arn }}"
         STATUS='failure'
         COUNTER=0
         
