@@ -52,6 +52,7 @@ runs:
         echo "status=$STATUS" >> $GITHUB_ENV
 
     - name: Get the cucumber report
+      if: env.status == 'success'
       shell: bash
       run: |
         curl -X GET ${{ inputs.API_ENDPOINT }}/${{ steps.start-tests.outputs.execution-id }} \
@@ -78,6 +79,7 @@ runs:
           {"summary": "OK, er ging iets mis"}
 
     - name: Convert cucumber report
+      if: env.status == 'success'
       uses: deblockt/cucumber-report-annotations-action@v1.7
       with:
         access-token: ${{ github.token }}
