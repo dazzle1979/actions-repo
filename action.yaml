@@ -1,7 +1,7 @@
 name: 'Hello World'
 description: 'Greet someone'
 input: 
-  token:
+  github_token:
     description: "GitHub Token"
     required: true
 runs:
@@ -10,12 +10,12 @@ runs:
     - uses: LouisBrunner/checks-action@v1.5.0
       id: integration-tests
       with:
-        token: ${{ inputs.token }}
+        token: ${{ inputs.github_token }}
         name: Integration tests
         status: in_progress
     - uses: LouisBrunner/checks-action@v1.5.0
       with:
-        token: ${{ inputs.token }}
+        token: ${{ inputs.github_token }}
         check_id: ${{ steps.integration-tests.outputs.check_id }}
         conclusion: failure
         output: |
