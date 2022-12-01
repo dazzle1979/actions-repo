@@ -19,8 +19,8 @@ runs:
       id: start
       shell: bash
       run: |
-        curl -X POST https://hxp8z9xr67.execute-api.eu-west-1.amazonaws.com/prod/integration-test
-
+        RESPONSE=$(curl -X POST https://hxp8z9xr67.execute-api.eu-west-1.amazonaws.com/prod/integration-test)
+        echo "id=$RESPONSE" >> $GITHUB_OUTPUT
     
     - uses: LouisBrunner/checks-action@v1.5.0
       with:
@@ -32,4 +32,4 @@ runs:
     
     - name: test
       shell: bash
-      run: echo ${{ steps.start.outputs }}
+      run: echo ${{ steps.start.id }}
