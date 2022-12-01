@@ -16,7 +16,7 @@ runs:
       id: start-tests
       shell: bash
       run: |
-        EXECUTION_ID=$(curl -X POST ${{ inputs.API_ENDPOINT }} -H "x-api-key: ${{ inputs.API_KEY }}" -H "Content-Type: application/json")
+        EXECUTION_ID=$(curl -X POST ${{ inputs.API_ENDPOINT }} -H "x-api-key: ${{ inputs.API_KEY }}" -H "Content-Type: application/json --fail")
         echo "execution-id=$EXECUTION_ID" >> $GITHUB_OUTPUT
 
     - uses: LouisBrunner/checks-action@v1.5.0
@@ -32,8 +32,9 @@ runs:
       shell: bash
       run: |
         REPORT_URL="${{ inputs.API_ENDPOINT }}/${{ steps.start-tests.outputs.execution-id }}"
+        STATUS='failure'
         COUNTER=0
-
+        
         while true;
         do
             HTTP_STATUS=$(curl -X GET $REPORT_URL -i -s -H "x-api-key: ${{ inputs.API_KEY }}" -H "Content-Type: application/json" | grep HTTP/ | awk {'print $2'})
@@ -41,8 +42,7 @@ runs:
                 STATUS='success'
                 break; 
             fi;
-            if (($COUNTER == 5));then
-                STATUS='failure'
+            if (($COUNTER == 6));then
                 break;
             fi;
             sleep 5;
@@ -52,13 +52,14 @@ runs:
         echo "status=$STATUS" >> $GITHUB_ENV
 
     - name: Get the cucumber report
-      if: env.status == 'success'
       shell: bash
       run: |
         curl -X GET ${{ inputs.API_ENDPOINT }}/${{ steps.start-tests.outputs.execution-id }} \
           -o cucumber.report.json \
           -H "x-api-key: ${{ inputs.API_KEY }}" \
-          -H "Content-Type: application/json"
+          -H "Content-Type: application/json" --fail
+          cat cucumber.report.json
+          echo '?'
     
     - uses: LouisBrunner/checks-action@v1.5.0
       if: env.status == 'success'
@@ -77,7 +78,6 @@ runs:
           {"summary": "OK, er ging iets mis"}
 
     - name: Convert cucumber report
-      if: env.status == 'success'
       uses: deblockt/cucumber-report-annotations-action@v1.7
       with:
         access-token: ${{ github.token }}
